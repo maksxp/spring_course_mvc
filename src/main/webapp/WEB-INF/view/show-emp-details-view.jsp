@@ -7,7 +7,19 @@
 <br>
 <br>
 
-your name : ${empName}
+<%--this one for simple view--%>
+<%--your name : ${empName}--%>
+
+<%--this one for view vith models--%>
+your name : ${employee.name}
+<br>
+<br>
+your surname : ${employee.surname}
+<br>
+<br>
+your salary : ${employee.salary}
+<br>
+<br>
 
 </body>
 </html>
