@@ -2,11 +2,13 @@ package com.mmm.spring.mvc;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @Controller
 // we can also use annotation @RequestMapping for class/ in this case it will be added before @RequestMapping of method
@@ -35,6 +37,7 @@ public class MyController {
         emp.setName("Ivan");
         emp.setSurname("Ivanov");
         emp.setSalary(500);
+        emp.setPhoneNumber("123-12-12");
         model.addAttribute("employee", emp);
 
         return "ask-emp-details-view";
@@ -66,15 +69,26 @@ public class MyController {
 //        return "show-emp-details-view";
 //    }
 
-    //using data from model from askDetails
+//    //using data from model from askDetails
+//    @RequestMapping("/showDetails")
+//    public String showEmpDetailsView (@ModelAttribute ("employee") Employee employee){
+//
+//        //we can change values of ModelAttribute employee
+//
+//        String name = employee.getName();
+//        employee.setName("Mr. "+name);
+//
+//        return "show-emp-details-view";
+//    }
+
+    //using validation
     @RequestMapping("/showDetails")
-    public String showEmpDetailsView (@ModelAttribute ("employee") Employee employee){
+    public String showEmpDetailsView (@Valid @ModelAttribute ("employee") Employee employee, BindingResult bindingResult){
 
-        //we can change values of ModelAttribute employee
-
-        String name = employee.getName();
-        employee.setName("Mr. "+name);
-
-        return "show-emp-details-view";
+        if (bindingResult.hasErrors()){
+            return "ask-emp-details-view";
+        } else {
+            return "show-emp-details-view";
+        }
     }
 }
