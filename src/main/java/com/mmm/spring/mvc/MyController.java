@@ -3,9 +3,7 @@ package com.mmm.spring.mvc;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -81,8 +79,12 @@ public class MyController {
 //        return "show-emp-details-view";
 //    }
 
-    //using validation
-    @RequestMapping("/showDetails")
+//    //using validation
+//    @RequestMapping( "/showDetails")
+//    //using validation and indicate that the method should work only with GET requests
+//    @RequestMapping(path = "/showDetails", method = RequestMethod.GET)
+    //this is the same as above
+    @GetMapping("/showDetails")
     public String showEmpDetailsView (@Valid @ModelAttribute ("employee") Employee employee, BindingResult bindingResult){
 
         if (bindingResult.hasErrors()){
